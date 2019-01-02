@@ -224,6 +224,7 @@ class Repl
 
       # expression path asString postErrors getBacktrace
       @sclang.interpret(expression, nowExecutingPath, true, false, true)
+        .then(ok, err)
 
       # @sclang.write(expression, true, false)
       # @sclang.writeInterpret(expression, nowExecutingPath, true, false) # <----- new function!!
@@ -241,7 +242,9 @@ class Repl
       @sclang.write, passing in the expression. Atom throws an error that it doesn't return a Promise
       but the code executes as expected (and as in scide).
 
-      The test is to try to concatenate strings larger than 8188 characters. With @sclang.interpret, the code is trunctated and an error is returned (null in file). With @sclang.write, we get the exepcted result with Atom complaining about not receiving a Promise.
+      The test is to try to concatenate strings larger than 8188 characters. With @sclang.interpret,
+      the code is trunctated and an error is returned (null in file). With @sclang.write, we get the
+      exepcted result with Atom complaining about not receiving a Promise.
 
       Possible Solutions:
         - Skip SuperColliderJS.interpret completely and write to stdin directly.
@@ -250,7 +253,6 @@ class Repl
         method. Concatentating and compiling strings longer than 8188 characters can be demonstrated
         to work in the scide. I imagine this is the solution worth investigating.
       ###
-        .then(ok, err)
 
     deferred.promise
 
