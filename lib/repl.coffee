@@ -224,6 +224,32 @@ class Repl
 
       # expression path asString postErrors getBacktrace
       @sclang.interpret(expression, nowExecutingPath, true, false, true)
+
+      # @sclang.write(expression, true, false)
+      # @sclang.writeInterpret(expression, nowExecutingPath, true, false) # <----- new function!!
+
+      ###
+      The error in truncating strings happens here. @sclang.interpret is called from sclang.js where
+      the code is passed to a call to @sclang.write which writes to the stdin of sclang. In the write
+      to stdin of sclang, however, it is embedded in a call to SuperColliderJS.interpret, which
+      evaluates the code as a String with code.compile. The problem is that we're evaluating SC code
+      from a call to an SC class in which that code is embedded; since sclang has a hard limit of
+      8188 characters for String literals, not all the code makes it inside the call to
+      SuperColliderJS.interpret if the code length is greater than 8188.
+
+      This can be demonstrated if one comments out @sclang.interpret above and uncomments
+      @sclang.write, passing in the expression. Atom throws an error that it doesn't return a Promise
+      but the code executes as expected (and as in scide).
+
+      The test is to try to concatenate strings larger than 8188 characters. With @sclang.interpret, the code is trunctated and an error is returned (null in file). With @sclang.write, we get the exepcted result with Atom complaining about not receiving a Promise.
+
+      Possible Solutions:
+        - Skip SuperColliderJS.interpret completely and write to stdin directly.
+        - Create (an)other method(s) in SuperColliderJS which collects code-to-be-compiled into a
+        string (that can be longer than 8188 characters) and which is executed from a separate
+        method. Concatentating and compiling strings longer than 8188 characters can be demonstrated
+        to work in the scide. I imagine this is the solution worth investigating.
+      ###
         .then(ok, err)
 
     deferred.promise
