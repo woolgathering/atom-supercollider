@@ -223,9 +223,10 @@ class Repl
         @postBus.push "<div class='pre in'>#{echo}</div>"
 
       # expression path asString postErrors getBacktrace
-      @sclang.interpret(expression, nowExecutingPath, true, false, true)
+      # @sclang.interpret(expression, nowExecutingPath, true, false, true)
+        # .then(ok, err)
+      @sclang.interpretCollect(expression, nowExecutingPath, true, false, true)
         .then(ok, err)
-
       # @sclang.write(expression, true, false)
       # @sclang.writeInterpret(expression, nowExecutingPath, true, false) # <----- new function!!
 
