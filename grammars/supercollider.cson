@@ -8,7 +8,7 @@
 'name': 'SuperCollider'
 'patterns': [
   {
-    'match': '\\b(arg|var|classvar|const|this|thisThread|thisMethod|thisFunction|thisProcess|true|false|inf|nil|for|forBy|if|switch|which|case|pi)\\b'
+    'match': '\\b(arg|var|classvar|const|this|thisThread|thisMethod|thisFunction|thisProcess|true|false|inf|nil|for|forBy|if|switch|which|case|pi|super|const)\\b'
     'name': 'keyword.control.supercollider'
   }
   {
@@ -69,6 +69,23 @@
     'match': '([0-9\d])+pi'
     'name': 'keyword.control.supercollider'
   }
+  {
+    # 'match': '([a-zA-Z\d])+(?=\()'
+    'match': '^(?<=\s)([a-zA-Z\d])+(?=\(.\))'
+    'name': 'entity.name.functionname.supercollider'
+  }
+  # {
+  #   'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+  #   'contentName': 'entity.name.function.supercollider'
+  #   'end': '(?![A-Za-z0-9_])'
+  #   'patterns': [
+  #     {
+  #       'include': '#entity_name_function'
+  #     }
+  #   ]
+  # }
+
+
   {
     'match': '\\\\[a-zA-Z0-9\\_]+'
     'name': 'entity.name.symbol.supercollider'
