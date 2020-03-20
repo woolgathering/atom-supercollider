@@ -16,7 +16,7 @@
     "jquery": "^2",
     "moment": "^2.18.1",
     "q": "^1.5.0",
-    "supercolliderjs": "file:/home/roger/Documents/jacob/github/supercolliderjs",
+    "supercolliderjs": "file:/home/jacob/Documents/jacob/github/supercolliderjs",
     "underscore": "^1.8.2",
     "untildify": "^3.0.2"
   },
