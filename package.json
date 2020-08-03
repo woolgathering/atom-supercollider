@@ -28,6 +28,7 @@
       "supercollider:open-post-window",
       "supercollider:clear-post-window",
       "supercollider:open-help-file",
+      "supercollider:evalBlock",
       "supercollider:recompile",
       "supercollider:cmd-period",
       "supercollider:manage-quarks",
